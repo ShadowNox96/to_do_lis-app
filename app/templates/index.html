@@ -1,0 +1,37 @@
+{% with mess=get_flashed_messages() %}
+{% if mess %}
+{% for m in mess %}
+<p style="color: red">{{m}}</p>
+{% endfor %}
+{% endif %}
+{% endwith %}
+<form action="/add_tarea" method="POST">
+    <input type="text" name="nombre_tarea" placeholder="Nombre de la Tarea">
+    <textarea name="descripcion" id="" cols="30" rows="10" placeholder="Descripcion de la tarea:"></textarea>
+    <button type="submit">Agregar Tarea</button>
+    <a href="/ver_tareas_terminadas">Ver tareas terminadas</a>
+</form>
+
+<label for="">Lista de tareas por hacer</label>
+<table>
+    <thead>
+        <tr>
+            <td>Nombre de la Tarea</td>
+            <td>Descripcion</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tarea in tareas %}
+        <tr>
+            <td>{{tarea.1}}</td>
+            <td>{{tarea.2}}</td>
+            <td>
+                    <a href="/editar/{{tarea.0}}">Editar tarea</a>
+                    <a href="/eliminar/{{tarea.0}}">Eliminar tarea</a>
+                    <a href="/terminar/{{tarea.0}}">Marcar como terminada</a>
+            </td>
+            
+        </tr>
+        {%  endfor %}
+    </tbody>
+</table>

@@ -1,0 +1,17 @@
+<label for="">Lista de tareas terminadas</label>
+<table>
+    <thead>
+        <tr>
+            <td>Nombre tarea</td>
+            <td>Descripcion de la tarea</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tarea in tareas %}
+            <tr>
+                <td>{{tarea.1}}</td>
+                <td>{{tarea.2}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
