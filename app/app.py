@@ -54,7 +54,7 @@ def eliminar_tarea(id):
 @app.route('/editar/<id>')
 def editar_tarea(id):
     cur= mysql.connection.cursor()
-    cur.execute('Select * from tareas where id= %s', (id))
+    cur.execute('Select * from tareas where id= %s', [id])
     tarea=cur.fetchall()
     return render_template('editar_tarea.html', tareas= tarea[0])
 
@@ -76,14 +76,15 @@ def guardar_cambios(id):
         return redirect(url_for('Index'))
 
 #ruta para marcar una tarea como terminada y que desaparezca de la tabla
-@app.route('/terminar/<id>')
+@app.route('/terminar/<string:id>')
 def terminar_tarea(id):
+    print(id)
     cur= mysql.connection.cursor()
     cur.execute("""
         UPDATE tareas
         SET tarea_realizada= true
         WHERE id=%s
-    """, (id))
+    """, [id])
     mysql.connection.commit()
     flash('Tarea terminada')
     return redirect(url_for('Index'))

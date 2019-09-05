@@ -1,5 +1,26 @@
-<form action="/guardar_edit/{{tareas.0}}" method="POST">
-    <input type="text" name="nombre_tarea" placeholder="Nombre de la Tarea" value="{{tareas.1}}">
-    <textarea name="descripcion" id="" cols="30" rows="10"  placeholder="Descripcion de la tarea:">{{tareas.2}}</textarea>
-    <button type="submit">Editar Tarea</button>
-</form>
+{% extends 'layout.html' %}
+{% block body %}
+<div class="col-md-4 offset-md-4">
+    <div class="card card-body">
+        <label for="" class="col-form-label-lg text-center">Editar Tarea</label>
+            <form action="/guardar_edit/{{tareas.0}}" method="POST">
+                <div class="form-group">
+                        <input type="text" name="nombre_tarea" placeholder="Nombre de la Tarea" value="{{tareas.1}}" required>
+                </div>
+
+                <div class="form-group">
+                        <textarea name="descripcion" id="" cols="30" rows="10"  placeholder="Descripcion de la tarea:" required>{{tareas.2}}</textarea>
+                </div>
+                
+                <div class="form-group">
+                        <button type="submit" class="btn btn-success col-6">Editar Tarea</button>
+                        <a href="/" class="btn btn-danger">Cancelar</a>
+                </div>
+                
+                
+            </form>
+    </div>
+        
+</div>
+
+{% endblock %}

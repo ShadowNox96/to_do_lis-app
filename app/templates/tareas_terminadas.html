@@ -1,17 +1,29 @@
-<label for="">Lista de tareas terminadas</label>
-<table>
-    <thead>
-        <tr>
-            <td>Nombre tarea</td>
-            <td>Descripcion de la tarea</td>
-        </tr>
-    </thead>
-    <tbody>
-        {% for tarea in tareas %}
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="card card-body col-md-6 offset-md-3">
+    <label for="" class="col-form-label-lg text-center">Lista de tareas terminadas</label>
+    <table class="table table-striped table-bordered bg-white">
+        <thead>
+            <tr>
+                <td style="background-color: slategray">Nombre tarea</td>
+                <td style="background-color: slategray">Descripcion de la tarea</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tarea in tareas %}
             <tr>
                 <td>{{tarea.1}}</td>
                 <td>{{tarea.2}}</td>
             </tr>
-        {% endfor %}
-    </tbody>
-</table>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-info" href="/">Volver a pagina principal</a>
+</div>
+
+
+
+{% endblock %}

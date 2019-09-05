@@ -1,37 +1,90 @@
-{% with mess=get_flashed_messages() %}
-{% if mess %}
-{% for m in mess %}
-<p style="color: red">{{m}}</p>
-{% endfor %}
-{% endif %}
-{% endwith %}
-<form action="/add_tarea" method="POST">
-    <input type="text" name="nombre_tarea" placeholder="Nombre de la Tarea">
-    <textarea name="descripcion" id="" cols="30" rows="10" placeholder="Descripcion de la tarea:"></textarea>
-    <button type="submit">Agregar Tarea</button>
-    <a href="/ver_tareas_terminadas">Ver tareas terminadas</a>
-</form>
+<!--En esta parte heredo el codigo del layout y puedo poseer el mismo codigo-->
+{% extends 'layout.html'%}
 
-<label for="">Lista de tareas por hacer</label>
-<table>
-    <thead>
-        <tr>
-            <td>Nombre de la Tarea</td>
-            <td>Descripcion</td>
-        </tr>
-    </thead>
-    <tbody>
-        {% for tarea in tareas %}
-        <tr>
-            <td>{{tarea.1}}</td>
-            <td>{{tarea.2}}</td>
-            <td>
-                    <a href="/editar/{{tarea.0}}">Editar tarea</a>
-                    <a href="/eliminar/{{tarea.0}}">Eliminar tarea</a>
-                    <a href="/terminar/{{tarea.0}}">Marcar como terminada</a>
-            </td>
-            
-        </tr>
-        {%  endfor %}
-    </tbody>
-</table>
+<!--Aca inicio el bloque como lo nombre en layout.html y significa que este se mostrarar con el de layout -->
+{%block body%}
+<!--Contenedor generl-->
+<div class="row">
+
+    <div class="col-md-5">
+        <!--Mensajes-->
+        {% with mess=get_flashed_messages() %}
+        {% if mess %}
+        {% for m in mess %}
+
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>{{m}}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <!--Aca ira el formulario-->
+        <div class="card card-body">
+            <label for="" class="col-form-label-lg text-center">Crear Tarea</label>
+            <form action="/add_tarea" method="POST">
+                <div class="form-group">
+                    <input type="text" name="nombre_tarea" placeholder="Nombre de la Tarea" required
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <textarea name="descripcion" id="" cols="30" rows="10" placeholder="Descripcion de la tarea:"
+                        required class="form-control"></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-success col-6" type="submit">Agregar Tarea <ion-icon name="add-circle">
+                        </ion-icon></button>
+                    <a class="btn btn-light " href="/ver_tareas_terminadas">Ver tareas terminadas <ion-icon
+                            name="list-box"></ion-icon></a>
+                </div>
+                <div class="form-group float-left">
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <!--Aca va la tabla de las tareas-->
+    <div class="col-md-7">
+        <div class="card card-body">
+            <label for="" class="col-form-label-lg text-center">Lista de Tareas</label>
+            <table class="table-striped table-bordered bg-white table-sm">
+                <thead>
+                    <tr>
+                        <td style="background-color: slategray">Nombre de la Tarea</td>
+                        <td style="background-color: slategray">Descripcion</td>
+                        <td style="background-color: slategray">Options</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tarea in tareas %}
+                    <tr>
+                        <td>{{tarea.1}}</td>
+                        <td>{{tarea.2}}</td>
+                        <td>
+                            <a class="btn btn-secondary" href="/editar/{{tarea.0}}">Editar tarea <ion-icon
+                                    name="create">
+                                </ion-icon></a>
+                            <a href="/eliminar/{{tarea.0}}" class="btn btn-danger">Eliminar tarea <ion-icon
+                                    name="trash">
+                                </ion-icon></a>
+                            <a href="/terminar/{{tarea.0}}" class="btn btn-info">Marcar como terminada
+                                <ion-icon name="checkmark"></ion-icon></a>
+                        </td>
+
+                    </tr>
+                    {%  endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock%}
