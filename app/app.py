@@ -54,6 +54,8 @@ def eliminar_tarea(id):
 @app.route('/editar/<id>')
 def editar_tarea(id):
     cur= mysql.connection.cursor()
+    # cuando los numeros pasan del 10 o sea se convierten en 2 digitos pasan a ser una lista 
+    #iterable lo cual se debe de representar como una lista que interpreta el numero como uno solo
     cur.execute('Select * from tareas where id= %s', [id])
     tarea=cur.fetchall()
     return render_template('editar_tarea.html', tareas= tarea[0])
